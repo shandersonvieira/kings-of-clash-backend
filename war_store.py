@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from dateutil.parser import isoparse
+from datetime import datetime
 from typing import List
 
 from services.war_service import WarService
@@ -13,14 +14,11 @@ class WarLogStore:
     def get(self) -> List[War]:
         resp = self.war_service.get_war_log()
 
-        if not resp.ok:
-            raise HTTPException(status_code=404, detail="Item not found")
-
-        if not resp.json()['items']:
+        if not resp['items']:
             raise HTTPException(status_code=404, detail="Item not found")
 
         result = [War(
-            created_date=isoparse(war_item['createdDate']),
+            war_date=isoparse(war_item['createdDate']),
             participants=[Participants(
                 tag=participant['tag'],
                 name=participant['name'],
@@ -30,6 +28,21 @@ class WarLogStore:
                 collectionDayBattlesPlayed=participant['collectionDayBattlesPlayed'],
                 numberOfBattles=participant['numberOfBattles']
             ) for participant in war_item['participants']]
-        ) for war_item in resp.json()['items']]
+        ) for war_item in resp['items']]
 
         return result
+
+    def filter_by_date(self, war_date_gte: datetime, war_date_lte: datetime) -> List[War]:
+        result = self.get()
+
+        for item in list(result):
+            if not (self.gte(item, war_date_gte) and self.lte(item, war_date_lte)):
+                result.remove(item)
+
+        return result
+
+    def gte(self, item: War, war_date: datetime) -> bool:
+        return item.war_date >= war_date
+
+    def lte(self, item: War, war_date: datetime) -> bool:
+        return item.war_date <= war_date

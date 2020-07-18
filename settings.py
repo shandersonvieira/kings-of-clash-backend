@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from dotenv import load_dotenv
 from dotenv_settings_handler import BaseSettingsHandler
 
@@ -9,5 +11,7 @@ class Settings(BaseSettingsHandler):
     API_KEY: str
     SSL_VERIFY: bool
     API_CLASH_LIMIT: int
+    WAR_START_DATE: datetime
+    WAR_END_DATE: datetime
 
 settings = Settings()

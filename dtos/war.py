@@ -4,8 +4,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class War(BaseModel):
-    created_date: datetime
+    war_date: datetime
     participants: List[Participants]
 
     def __repr__(self):
-        return '<War {}>'.format(self.created_date.strftime('%d-%m-%Y'))
+        return '<War {}>'.format(self.war_date.strftime('%d-%m-%Y'))
