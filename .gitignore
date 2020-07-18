@@ -1,0 +1,41 @@
+.idea
+.vscode
+.env
+*.pyc
+pkg/
+
+# Byte-compiled / optimized / DLL files
+*pycache*
+*.py[cod]
+*$py.class
+django_request.log.*
+# C extensions
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+cover/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# pyenv
+.python-version
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+
+# mypy
+.mypy_cache/
+src/telavita/yourdatabasename.db
