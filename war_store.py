@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import List
 
 from services.war_service import WarService
-from dtos.participants import Participants
+from dtos.participants import Participant
 from dtos.war import War
 
 
@@ -15,18 +15,18 @@ class WarLogStore:
         resp = self.war_service.get_war_log()
 
         if not resp['items']:
-            raise HTTPException(status_code=404, detail="Item not found")
+            raise HTTPException(status_code=404, detail='Api não acessível')
 
         result = [War(
             war_date=isoparse(war_item['createdDate']),
-            participants=[Participants(
+            participants=[Participant(
                 tag=participant['tag'],
                 name=participant['name'],
-                cardsEarned=participant['cardsEarned'],
-                battlesPlayed=participant['battlesPlayed'],
+                cards_earned=participant['cardsEarned'],
+                battles_played=participant['battlesPlayed'],
                 wins=participant['wins'],
-                collectionDayBattlesPlayed=participant['collectionDayBattlesPlayed'],
-                numberOfBattles=participant['numberOfBattles']
+                collection_day_battles_played=participant['collectionDayBattlesPlayed'],
+                number_of_battles=participant['numberOfBattles']
             ) for participant in war_item['participants']]
         ) for war_item in resp['items']]
 

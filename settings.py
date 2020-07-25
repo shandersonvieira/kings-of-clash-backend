@@ -13,5 +13,9 @@ class Settings(BaseSettingsHandler):
     API_CLASH_LIMIT: int
     WAR_START_DATE: datetime
     WAR_END_DATE: datetime
+    ZERO_VICTORY: int
+    ONE_VICTORY: int
+    TWO_VICTORY: int
+    TREE_VICTORY: int
 
 settings = Settings()
